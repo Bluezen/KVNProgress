@@ -143,6 +143,22 @@ static KVNProgressConfiguration *configuration;
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
+#pragma mark - UIView
+
+-(void)layoutSubviews
+{
+    [super layoutSubviews];
+    
+    if (self.style == KVNCustomDisplayAchievement) {
+        // Force contentView frame height, bypass autolayout constraints ... quick & dirty
+        CGRect frame = CGRectZero;
+        frame.size.height = 150.0f;
+        frame.size.width  = CGRectGetWidth(self.bounds);
+        frame.origin.y    = (CGRectGetHeight(self.bounds) * 0.5f) - (frame.size.height * 0.5f);
+        self.contentView.frame = frame;
+    }
+}
+
 #pragma mark - Notifications
 
 - (void)registerForNotifications {
@@ -419,6 +435,8 @@ static KVNProgressConfiguration *configuration;
 	self.style = style;
 	self.backgroundType = backgroundType;
 	self.fullScreen = fullScreen;
+    self.title = nil;
+    self.imageCustom = nil;
 
 	// If HUD is already added to the view we just update the UI
 	if ([self.class isVisible]) {
@@ -868,8 +886,11 @@ static KVNProgressConfiguration *configuration;
      
 - (void)setupAchievementUI
 {
-    self.contentView.contentMode = UIViewContentModeCenter;
+    self.contentView.contentMode = UIViewContentModeScaleAspectFit;
+    self.contentView.clipsToBounds = YES;
     self.contentView.image = self.imageCustom;
+    
+    [self setNeedsLayout];
 }
 
 - (void)setupFullRoundCircleWithColor:(UIColor *)color

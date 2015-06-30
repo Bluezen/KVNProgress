@@ -143,7 +143,9 @@
     };
 	[KVNProgress setConfiguration:conf];
 	
-    UIImage *image = [UIImage imageNamed:@"image"];
+    UIImage *image =
+    [UIImage imageNamed:@"imageTall.jpg"];
+//    [UIImage imageNamed:@"imageSmall"];
     
 	[KVNProgress showWithAchievementTitle:@"Test de titre avec beaucoup de texte et donc avec un peu de chance sur plusieurs lignes"
                                  andImage:image];
