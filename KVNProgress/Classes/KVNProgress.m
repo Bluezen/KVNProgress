@@ -14,6 +14,7 @@
 #import "UIImage+KVNImageEffects.h"
 #import "UIImage+KVNEmpty.h"
 #import "UIColor+KVNContrast.h"
+#import "NSString+Utilities.h"
 
 #define KVNBlockSelf __blockSelf
 #define KVNPrepareBlockSelf() __weak typeof(self) KVNBlockSelf = self
@@ -862,7 +863,7 @@ static KVNProgressConfiguration *configuration;
     self.titleLabel.text = title;
     self.titleLabel.hidden = !showTitle;
     
-    [self updateStatusConstraints];
+    [self updateTitleConstraints];
 }
      
 - (void)setupAchievementUI
@@ -1102,9 +1103,11 @@ static KVNProgressConfiguration *configuration;
 
 - (void)updateTitleConstraints
 {
-    CGSize maximumLabelSize = CGSizeMake(CGRectGetWidth(self.titleLabel.bounds), CGFLOAT_MAX);
-    CGSize titleLabelSize = [self.titleLabel sizeThatFits:maximumLabelSize];
-    self.titleLabelHeightConstraint.constant = titleLabelSize.height;
+    CGFloat titleLabelHeight =
+    [self.titleLabel.text heightWithFont:self.titleLabel.font
+                             andWitdhMax:CGRectGetWidth(self.titleLabel.bounds)];
+    
+    self.titleLabelHeightConstraint.constant = titleLabelHeight;
     
     [self layoutIfNeeded];
 }

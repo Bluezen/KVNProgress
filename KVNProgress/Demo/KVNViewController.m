@@ -145,7 +145,7 @@
 	
     UIImage *image = [UIImage imageNamed:@"image"];
     
-	[KVNProgress showWithAchievementTitle:@"Test de titre"
+	[KVNProgress showWithAchievementTitle:@"Test de titre avec beaucoup de texte et donc avec un peu de chance sur plusieurs lignes"
                                  andImage:image];
 }
 
