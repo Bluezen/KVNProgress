@@ -136,12 +136,10 @@
 
 - (IBAction)showCustom
 {
-	[KVNProgress setConfiguration:self.customConfiguration];
+//	[KVNProgress setConfiguration:self.customConfiguration];
 	
-	[KVNProgress showProgress:0.0f
-					   status:@"You can custom several things like colors, fonts, circle size, and more!"];
-	
-	[self updateProgress];
+	[KVNProgress showWithAchievementTitle:@"Test de titre"
+                                 andImage:[UIImage imageNamed:@"flower"]];
 	
 	dispatch_main_after(5.5f, ^{
 		[self showSuccess];

@@ -25,7 +25,8 @@ typedef NS_ENUM(NSUInteger, KVNProgressStyle) {
 	KVNProgressStyleHidden,
 	KVNProgressStyleProgress,
 	KVNProgressStyleSuccess,
-	KVNProgressStyleError
+	KVNProgressStyleError,
+    KVNCustomDisplayAchievement
 };
 
 typedef NS_ENUM(NSUInteger, KVNProgressState) {
@@ -59,6 +60,8 @@ static KVNProgressConfiguration *configuration;
 @property (nonatomic) CGFloat progress;
 @property (nonatomic) KVNProgressBackgroundType backgroundType;
 @property (nonatomic) NSString *status;
+@property (nonatomic) NSString *title;
+@property (nonatomic) UIImage  *imageCustom;
 @property (nonatomic) KVNProgressStyle style;
 @property (nonatomic) KVNProgressConfiguration *configuration;
 @property (nonatomic) NSDate *showActionTrigerredDate;
@@ -70,6 +73,7 @@ static KVNProgressConfiguration *configuration;
 @property (nonatomic, weak) IBOutlet UIImageView *contentView;
 @property (nonatomic, weak) IBOutlet UIView *circleProgressView;
 @property (nonatomic, weak) IBOutlet UILabel *statusLabel;
+@property (nonatomic, weak) IBOutlet UILabel *titleLabel;
 @property (nonatomic, weak) IBOutlet UIImageView *backgroundImageView;
 
 @property (nonatomic, strong) CAShapeLayer *checkmarkLayer;
@@ -85,6 +89,7 @@ static KVNProgressConfiguration *configuration;
 @property (nonatomic, weak) IBOutlet NSLayoutConstraint *circleProgressViewHeightConstraint;
 @property (nonatomic, weak) IBOutlet NSLayoutConstraint *circleProgressViewToStatusLabelVerticalSpaceConstraint;
 @property (nonatomic, weak) IBOutlet NSLayoutConstraint *statusLabelHeightConstraint;
+@property (nonatomic, weak) IBOutlet NSLayoutConstraint *titleLabelHeightConstraint;
 @property (nonatomic, weak) IBOutlet NSLayoutConstraint *circleProgressViewTopToSuperViewConstraint;
 @property (nonatomic, weak) IBOutlet NSLayoutConstraint *statusLabelBottomToSuperViewConstraint;
 @property (nonatomic, weak) IBOutlet NSLayoutConstraint *contentViewWidthConstraint;
@@ -174,6 +179,26 @@ static KVNProgressConfiguration *configuration;
 	} else {
 		[self updateUIForOrientation];
 	}
+}
+
+#pragma mark - Custom display achievement
+
++ (void)showWithAchievementTitle:(NSString *)title
+                        andImage:(UIImage *)image
+{
+    [KVNProgress showWithAchievementTitle:title
+                                 andImage:image
+                                   onView:nil];
+}
+
++ (void)showWithAchievementTitle:(NSString *)title
+                        andImage:(UIImage *)image
+                          onView:(UIView *)superview
+{
+    [[self sharedView] showAchievementWithTitle:title
+                                          image:image
+                                           view:superview
+                                     completion:nil];
 }
 
 #pragma mark - Loading
@@ -448,6 +473,54 @@ static KVNProgressConfiguration *configuration;
 	}
 }
 
+- (void)showAchievementWithTitle:(NSString *)title
+                           image:(UIImage *)image
+                            view:(UIView *)superview
+                      completion:(KVNCompletionBlock)completion
+{
+    KVNPrepareBlockSelf();
+    
+    // We're going to create a new HUD
+    self.waitingToChangeHUD = NO;
+    self.progress = KVNProgressIndeterminate;
+    self.status = nil;
+    self.style = KVNCustomDisplayAchievement;
+    self.backgroundType = KVNProgressBackgroundTypeBlurred;
+    self.fullScreen = YES;
+    self.title = title;
+    self.imageCustom = image;
+    
+    // If HUD is already added to the view we just update the UI
+    if ([self.class isVisible]) {
+        self.state = KVNProgressStateShowed;
+        
+        [UIView animateWithDuration:KVNLayoutAnimationDuration
+                         animations:^{
+                             [KVNBlockSelf setupUI];
+                         }];
+        
+        KVNBlockSelf.showActionTrigerredDate = [NSDate date];
+        [KVNBlockSelf animateUI];
+    } else {
+        self.state = KVNProgressStateAppearing;
+        
+        if (superview) {
+            [self addToView:superview];
+        } else {
+            [self addToCurrentWindow];
+        }
+        
+        [self setupUI];
+        
+        // FIXME: find a way to wait for the views to be added to the window before launching the animations
+        // (Fix to make the animations work fine)
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [KVNBlockSelf animateUI];
+            [KVNBlockSelf animateAppearance];
+        });
+    }
+}
+
 #pragma mark - Dimiss
 
 + (void)dismiss
@@ -541,6 +614,7 @@ static KVNProgressConfiguration *configuration;
 	[self setupCircleProgressView];
 	[self setupStatus:self.status];
 	[self setupBackground];
+    [self setupTitle:self.title];
 }
 
 - (void)setupStatusBar
@@ -777,6 +851,26 @@ static KVNProgressConfiguration *configuration;
 	[self.circleProgressView.layer removeAllAnimations];
 }
 
+- (void)setupTitle:(NSString *)title
+{
+    self.title = title;
+    
+    BOOL showTitle = (self.title.length > 0);
+    
+    self.titleLabel.font = self.configuration.titleFont;
+    self.titleLabel.textColor = self.configuration.titleColor;
+    self.titleLabel.text = title;
+    self.titleLabel.hidden = !showTitle;
+    
+    [self updateStatusConstraints];
+}
+     
+- (void)setupAchievementUI
+{
+    self.contentView.contentMode = UIViewContentModeCenter;
+    self.contentView.image = self.imageCustom;
+}
+
 - (void)setupFullRoundCircleWithColor:(UIColor *)color
 {
 	CGFloat radius = (self.configuration.circleSize / 2.0f);
@@ -1006,6 +1100,15 @@ static KVNProgressConfiguration *configuration;
 	[self layoutIfNeeded];
 }
 
+- (void)updateTitleConstraints
+{
+    CGSize maximumLabelSize = CGSizeMake(CGRectGetWidth(self.titleLabel.bounds), CGFLOAT_MAX);
+    CGSize titleLabelSize = [self.titleLabel sizeThatFits:maximumLabelSize];
+    self.titleLabelHeightConstraint.constant = titleLabelSize.height;
+    
+    [self layoutIfNeeded];
+}
+
 + (void)updateProgress:(CGFloat)progress
 			  animated:(BOOL)animated
 {
@@ -1083,6 +1186,10 @@ static KVNProgressConfiguration *configuration;
 			// should enver happen
 			break;
 		}
+        case KVNCustomDisplayAchievement: {
+            [self setupAchievementUI];
+            break;
+        }
 	}
 }
 

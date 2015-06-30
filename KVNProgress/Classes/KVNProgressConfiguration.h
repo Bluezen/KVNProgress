@@ -63,6 +63,13 @@ typedef NS_ENUM(NSUInteger, KVNProgressBackgroundType) {
 /** Font of the status label. */
 @property (nonatomic) UIFont *statusFont;
 
+#pragma mark - Title
+
+/** Color of the status label. */
+@property (nonatomic) UIColor *titleColor;
+/** Font of the status label. */
+@property (nonatomic) UIFont *titleFont;
+
 #pragma mark - Success/Error
 
 /** color of the circle and checkmark when showing success. */

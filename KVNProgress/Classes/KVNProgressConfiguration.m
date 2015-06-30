@@ -30,6 +30,9 @@
 		
 		_statusColor = [UIColor darkGrayColor];
 		_statusFont = [UIFont systemFontOfSize:17.0f];
+        
+        _titleFont = [UIFont fontWithName:@"Avenir-Book" size:17.0f];
+        _titleColor = [UIColor colorWithRed:130.0f/255.0f green:121.0f/255.0f blue:109.0f/255.0f alpha:1.0f];
 		
 		_successColor = [_statusColor copy];
 		_errorColor = [_statusColor copy];

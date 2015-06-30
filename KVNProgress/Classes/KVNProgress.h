@@ -28,6 +28,15 @@ typedef void (^KVNCompletionBlock)(void);
  */
 + (void)setConfiguration:(KVNProgressConfiguration *)newConfiguration;
 
+#pragma mark - Custom display achievement
+
++ (void)showWithAchievementTitle:(NSString *)title
+                        andImage:(UIImage *)image;
+
++ (void)showWithAchievementTitle:(NSString *)title
+                        andImage:(UIImage *)image
+                          onView:(UIView *)superview;
+
 #pragma mark - Loading
 
 /** Shows an indeterminate progress view without status. */
