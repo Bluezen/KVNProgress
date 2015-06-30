@@ -48,7 +48,7 @@
                         <constraint firstAttribute="centerX" secondItem="iI6-MR-KeW" secondAttribute="centerX" id="vof-Gd-IFp"/>
                     </constraints>
                 </view>
-                <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ly8-5V-AGB" userLabel="Title Label">
+                <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ly8-5V-AGB" userLabel="Title Label">
                     <rect key="frame" x="0.0" y="135" width="320" height="21"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="21" id="v5L-SA-cIE"/>
