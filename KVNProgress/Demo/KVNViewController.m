@@ -136,15 +136,17 @@
 
 - (IBAction)showCustom
 {
-//	[KVNProgress setConfiguration:self.customConfiguration];
+    KVNProgressConfiguration *conf = [KVNProgressConfiguration defaultConfiguration];
+    conf.tapBlock = ^(KVNProgress *progressView) {
+        [KVNProgress dismiss];
+//        [KVNProgress setConfiguration:self.basicConfiguration];
+    };
+	[KVNProgress setConfiguration:conf];
 	
+    UIImage *image = [UIImage imageNamed:@"image"];
+    
 	[KVNProgress showWithAchievementTitle:@"Test de titre"
-                                 andImage:[UIImage imageNamed:@"flower"]];
-	
-	dispatch_main_after(5.5f, ^{
-		[self showSuccess];
-		[KVNProgress setConfiguration:self.basicConfiguration];
-	});
+                                 andImage:image];
 }
 
 #pragma mark - Actions
