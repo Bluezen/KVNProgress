@@ -490,6 +490,7 @@ static KVNProgressConfiguration *configuration;
 				delay = self.configuration.minimumErrorDisplayTime;
 				break;
 			case KVNProgressStyleHidden:
+            case KVNCustomDisplayAchievement:
 				// should never happen
 				return;
 		}
