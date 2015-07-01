@@ -152,10 +152,18 @@ static KVNProgressConfiguration *configuration;
     if (self.style == KVNCustomDisplayAchievement) {
         // Force contentView frame height, bypass autolayout constraints ... quick & dirty
         CGRect frame = CGRectZero;
-        frame.size.height = 150.0f;
-        frame.size.width  = CGRectGetWidth(self.bounds);
-        frame.origin.y    = (CGRectGetHeight(self.bounds) * 0.5f) - (frame.size.height * 0.5f);
-        self.contentView.frame = frame;
+        {
+            frame = CGRectZero;
+            frame.size.height = 200.0f;
+            frame.size.width  = CGRectGetWidth(self.bounds);
+            frame.origin.y    = (CGRectGetHeight(self.bounds) * 0.5f) - (frame.size.height * 0.5f);
+            self.contentView.frame = frame;
+        }
+        {
+            frame = self.titleLabel.frame;
+            frame.origin.y = CGRectGetMinY(self.contentView.frame) - (frame.size.height) - 44.0f;
+            self.titleLabel.frame = frame;
+        }
     }
 }
 
