@@ -6,11 +6,11 @@
 //  Copyright (c) 2015 Pinch. All rights reserved.
 //
 
-#import "NSString+Utilities.h"
+#import "NSString+KVNTextSize.h"
 
-@implementation NSString (Utilities)
+@implementation NSString (KVNTextSize)
 
-- (CGFloat)heightWithFont:(UIFont *)font andWitdhMax:(CGFloat)widthMAX
+- (CGFloat)kvn_textHeightWithFont:(UIFont *)font andWitdhMax:(CGFloat)widthMAX
 {
     if (self.length == 0 || !font) {
         return 0.0f;

@@ -8,8 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
-@interface NSString (Utilities)
+@interface NSString (KVNTextSize)
 
-- (CGFloat)heightWithFont:(UIFont *)font andWitdhMax:(CGFloat)widthMAX;
+- (CGFloat)kvn_textHeightWithFont:(UIFont *)font andWitdhMax:(CGFloat)widthMAX;
 
 @end

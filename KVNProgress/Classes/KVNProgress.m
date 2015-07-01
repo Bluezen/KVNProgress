@@ -14,7 +14,7 @@
 #import "UIImage+KVNImageEffects.h"
 #import "UIImage+KVNEmpty.h"
 #import "UIColor+KVNContrast.h"
-#import "NSString+Utilities.h"
+#import "NSString+KVNTextSize.h"
 
 #define KVNBlockSelf __blockSelf
 #define KVNPrepareBlockSelf() __weak typeof(self) KVNBlockSelf = self
@@ -1125,8 +1125,8 @@ static KVNProgressConfiguration *configuration;
 - (void)updateTitleConstraints
 {
     CGFloat titleLabelHeight =
-    [self.titleLabel.text heightWithFont:self.titleLabel.font
-                             andWitdhMax:CGRectGetWidth(self.titleLabel.bounds)];
+    [self.titleLabel.text kvn_textHeightWithFont:self.titleLabel.font
+                                     andWitdhMax:CGRectGetWidth(self.titleLabel.bounds)];
     
     self.titleLabelHeightConstraint.constant = titleLabelHeight;
     

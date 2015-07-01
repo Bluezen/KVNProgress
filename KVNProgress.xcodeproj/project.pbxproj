@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		051232C61B42D9C1002E4FF6 /* imageSmall.png in Resources */ = {isa = PBXBuildFile; fileRef = 051232C51B42D9C1002E4FF6 /* imageSmall.png */; };
-		051232C91B43123D002E4FF6 /* NSString+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 051232C81B43123D002E4FF6 /* NSString+Utilities.m */; };
+		051232C91B43123D002E4FF6 /* NSString+KVNTextSize.m in Sources */ = {isa = PBXBuildFile; fileRef = 051232C81B43123D002E4FF6 /* NSString+KVNTextSize.m */; };
 		051232CB1B43205F002E4FF6 /* imageTall.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 051232CA1B43205F002E4FF6 /* imageTall.jpg */; };
 		0A53757B1A45784200A7743C /* KVNProgressConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A53757A1A45784200A7743C /* KVNProgressConfiguration.m */; };
 		0A835D691AB339E900CB321A /* UIColor+KVNContrast.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A835D681AB339E900CB321A /* UIColor+KVNContrast.m */; };
@@ -48,8 +48,8 @@
 
 /* Begin PBXFileReference section */
 		051232C51B42D9C1002E4FF6 /* imageSmall.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = imageSmall.png; sourceTree = "<group>"; };
-		051232C71B43123D002E4FF6 /* NSString+Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Utilities.h"; sourceTree = "<group>"; };
-		051232C81B43123D002E4FF6 /* NSString+Utilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Utilities.m"; sourceTree = "<group>"; };
+		051232C71B43123D002E4FF6 /* NSString+KVNTextSize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+KVNTextSize.h"; sourceTree = "<group>"; };
+		051232C81B43123D002E4FF6 /* NSString+KVNTextSize.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+KVNTextSize.m"; sourceTree = "<group>"; };
 		051232CA1B43205F002E4FF6 /* imageTall.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = imageTall.jpg; sourceTree = "<group>"; };
 		0A5375791A45784200A7743C /* KVNProgressConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KVNProgressConfiguration.h; sourceTree = "<group>"; };
 		0A53757A1A45784200A7743C /* KVNProgressConfiguration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KVNProgressConfiguration.m; sourceTree = "<group>"; };
@@ -223,8 +223,8 @@
 				0AA0DD2F1931EB3D00FDD29F /* UIImage+KVNEmpty.m */,
 				0A835D671AB339E900CB321A /* UIColor+KVNContrast.h */,
 				0A835D681AB339E900CB321A /* UIColor+KVNContrast.m */,
-				051232C71B43123D002E4FF6 /* NSString+Utilities.h */,
-				051232C81B43123D002E4FF6 /* NSString+Utilities.m */,
+				051232C71B43123D002E4FF6 /* NSString+KVNTextSize.h */,
+				051232C81B43123D002E4FF6 /* NSString+KVNTextSize.m */,
 			);
 			path = Categories;
 			sourceTree = "<group>";
@@ -416,7 +416,7 @@
 			files = (
 				0A85E7771932755300B16419 /* KVNAppDelegate.m in Sources */,
 				0AA0DD241930E0C000FDD29F /* KVNProgress.m in Sources */,
-				051232C91B43123D002E4FF6 /* NSString+Utilities.m in Sources */,
+				051232C91B43123D002E4FF6 /* NSString+KVNTextSize.m in Sources */,
 				0A53757B1A45784200A7743C /* KVNProgressConfiguration.m in Sources */,
 				0AA0DD281930E62A00FDD29F /* UIImage+KVNImageEffects.m in Sources */,
 				0A85E76F1932753300B16419 /* main.m in Sources */,
